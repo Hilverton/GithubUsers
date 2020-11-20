@@ -2,7 +2,12 @@
   "env": {
     "es2021": true
   },
-  "extends": ["plugin:react/recommended", "airbnb"],
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:prettier/recommended",
+    "stylelint-prettier/recommended"
+  ],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
@@ -13,6 +18,8 @@
   "plugins": ["react", "react-hooks", "prettier"],
   "rules": {
     "prettier/prettier": "error",
+    "react/jsx-one-expression-per-line": "off",
+    "react/jsx-props-no-spreading": "off",
     "react/jsx-filename-extension": ["warn", { "extensions": [".jsx", ".js"] }],
     "import/prefer-default-export": "off",
     "react/style-prop-object": "off",
