@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { Platform, ScrollView } from 'react-native';
+import { Platform, ScrollView, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { Rectangle } from '../../components';
 import { Colors } from '../../styles';
 
 import {
@@ -45,6 +46,7 @@ export default function Home({ navigation }) {
 
           <UserContainer>
             <Name>Hilverton Cesar</Name>
+            <Rectangle />
             <Email>hilvertoncesar@gmail.com</Email>
             <City>Maceió/AL</City>
           </UserContainer>
@@ -68,6 +70,7 @@ export default function Home({ navigation }) {
 
           <BioContainer>
             <Title>Bio</Title>
+            <Rectangle />
             <BioText>
               Lorem ipsun Lorem ipsunLorem ipsun Lorem ipsun Lorem ipsun Lorem
               ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun

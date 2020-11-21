@@ -14,7 +14,7 @@ export const Text = styled.Text`
 export const Header = styled.View`
   height: 97px;
   width: 100%;
-  padding: 0 10px;
+  padding: 10px 20px 0;
   background-color: ${Colors.backgroundColor};
   flex-direction: row;
   justify-content: space-between;
@@ -43,7 +43,7 @@ export const Body = styled.View`
 
 export const ImageProfile = styled.Image`
   margin-top: -50px;
-  margin-bottom: 45px;
+  margin-bottom: 35px;
   width: 115px;
   height: 115px;
   border-radius: 57px;
@@ -53,12 +53,14 @@ export const ImageProfile = styled.Image`
 
 export const UserContainer = styled.View`
   width: 100%;
-  padding: 0 20px;
+  padding: 0 30px;
   margin-bottom: 44px;
+  position: relative;
 `;
 
 export const Name = styled.Text`
   font-size: 26px;
+  margin: 13px 0 4px;
   font-weight: bold;
   color: ${Colors.white};
 `;
@@ -76,7 +78,7 @@ export const City = styled.Text`
 export const PanelInfo = styled.View`
   height: 97px;
   width: 100%;
-  margin-bottom: 53px;
+  margin-bottom: 43px;
   padding: 0 20px;
   background-color: ${Colors.grey};
   flex-direction: row;
@@ -101,17 +103,17 @@ export const Type = styled.Text`
 
 export const BioContainer = styled.View`
   width: 100%;
-  padding-bottom: 100px;
-`;
-
-export const BioText = styled.Text`
-  width: 90%;
-  align-self: center;
-  font-size: 15px;
-  color: ${Colors.white};
+  padding: 0 30px 100px;
 `;
 
 export const Title = styled(Name)`
-  margin-left: 16px;
+  margin-top: 13px;
   margin-bottom: 14px;
+`;
+
+export const BioText = styled.Text`
+  width: 100%;
+  align-self: center;
+  font-size: 15px;
+  color: ${Colors.white};
 `;
