@@ -1,11 +1,16 @@
 import React from 'react';
 
+import { Header } from '../../components';
+
 import { Container, Text } from './styles';
 
-export default function Repository() {
+export default function Repository({ navigation }) {
   return (
-    <Container>
-      <Text>Repository</Text>
-    </Container>
+    <>
+      <Header back={() => navigation.goBack()}>10 repositórios</Header>
+      <Container>
+        <Text>Repository</Text>
+      </Container>
+    </>
   );
 }
