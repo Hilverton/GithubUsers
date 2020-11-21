@@ -1,5 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { AntDesign } from '@expo/vector-icons';
+
+import { DataContext } from '../../context';
 
 import {
   Container,
@@ -13,6 +15,7 @@ import {
 import { Colors } from '../../styles';
 
 export default function Login({ navigation }) {
+  const { getData } = useContext(DataContext);
   const [username, setUsername] = useState('');
   const [required, setRequired] = useState(false);
 
@@ -26,6 +29,8 @@ export default function Login({ navigation }) {
       setRequired(!required);
       return;
     }
+
+    getData(username);
     navigation.navigate('Main');
   }
 

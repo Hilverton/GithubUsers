@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Platform, ScrollView, View } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+
+import { DataContext } from '../../context';
+
 import { Rectangle } from '../../components';
 import { Colors } from '../../styles';
 
@@ -26,11 +29,13 @@ import {
 } from './styles';
 
 export default function Home({ navigation }) {
+  const { user } = useContext(DataContext);
+
   return (
     <Container style={{ paddingTop: Platform.OS === 'android' ? 30 : 0 }}>
       <ScrollView>
         <Header>
-          <Username>#Hilverton</Username>
+          <Username>#{user.login}</Username>
           <ExitContainer>
             <ExitText>Sair</ExitText>
             <Feather name='log-out' size={24} color={Colors.red} />
@@ -39,31 +44,30 @@ export default function Home({ navigation }) {
         <Body>
           <ImageProfile
             source={{
-              uri:
-                'https://avatars0.githubusercontent.com/u/44450158?s=460&u=b34b936043c7230b8054c0fdcd5bf29c8dd5e5d5&v=4',
+              uri: user.avatar_url,
             }}
           />
 
           <UserContainer>
-            <Name>Hilverton Cesar</Name>
+            <Name>{user.name}</Name>
             <Rectangle />
-            <Email>hilvertoncesar@gmail.com</Email>
-            <City>Maceió/AL</City>
+            {user.email && <Email>{user.email}</Email>}
+            {user.location && <City>{user.location}</City>}
           </UserContainer>
 
           <PanelInfo>
             <InfoContainer onPress={() => navigation.navigate('Seguidores')}>
-              <Number>32</Number>
+              <Number>{user.followers}</Number>
               <Type>Seguidores</Type>
             </InfoContainer>
 
             <InfoContainer onPress={() => navigation.navigate('Seguindo')}>
-              <Number>32</Number>
+              <Number>{user.following}</Number>
               <Type>Seguindo</Type>
             </InfoContainer>
 
             <InfoContainer onPress={() => navigation.navigate('Repos')}>
-              <Number>32</Number>
+              <Number>{user.public_repos}</Number>
               <Type>Repos</Type>
             </InfoContainer>
           </PanelInfo>
@@ -71,14 +75,7 @@ export default function Home({ navigation }) {
           <BioContainer>
             <Title>Bio</Title>
             <Rectangle />
-            <BioText>
-              Lorem ipsun Lorem ipsunLorem ipsun Lorem ipsun Lorem ipsun Lorem
-              ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun
-              Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem
-              ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun
-              Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem ipsun Lorem
-              ipsun Lorem ipsun Lorem ipsun
-            </BioText>
+            <BioText>{user.bio}</BioText>
           </BioContainer>
         </Body>
       </ScrollView>
