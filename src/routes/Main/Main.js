@@ -18,6 +18,7 @@ export default function Main() {
           paddingBottom: 5,
           borderTopRightRadius: 20,
           borderTopLeftRadius: 20,
+          position: 'absolute',
         },
       }}
     >
