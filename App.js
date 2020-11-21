@@ -1,7 +1,7 @@
 import React from 'react';
 
-import { Main } from './src/routes';
+import { Authentication } from './src/routes';
 
 export default function App() {
-  return <Main />;
+  return <Authentication />;
 }
