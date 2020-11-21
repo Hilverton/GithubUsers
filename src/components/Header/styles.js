@@ -3,7 +3,7 @@ import { Colors } from '../../styles';
 
 export const Container = styled.View`
   width: 100%;
-  height: 70px;
+  height: 90px;
   padding-top: 20px;
   flex-direction: row;
   justify-content: space-between;
