@@ -7,4 +7,5 @@ export default {
   red: '#cc042a',
   grey: '#5252525d',
   line: '#7070705a',
+  white: '#fff',
 };
