@@ -32,8 +32,13 @@ export function DataProvider({ children }) {
       location,
     });
   }
+
+  function exit() {
+    setUser({});
+  }
+
   return (
-    <DataContext.Provider value={{ getData, user }}>
+    <DataContext.Provider value={{ getData, user, exit }}>
       {children}
     </DataContext.Provider>
   );

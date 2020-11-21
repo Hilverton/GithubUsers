@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { Platform, ScrollView, View } from 'react-native';
+import { Platform, ScrollView, View, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 
 import { DataContext } from '../../context';
@@ -14,6 +14,7 @@ import {
   ExitContainer,
   ExitText,
   Body,
+  ImageContainer,
   ImageProfile,
   UserContainer,
   Name,
@@ -29,8 +30,11 @@ import {
 } from './styles';
 
 export default function Home({ navigation }) {
-  const { user } = useContext(DataContext);
-
+  const { user, exit } = useContext(DataContext);
+  function exitUser() {
+    exit();
+    navigation.navigate('Login');
+  }
   return (
     <Container style={{ paddingTop: Platform.OS === 'android' ? 30 : 0 }}>
       <ScrollView>
@@ -38,15 +42,19 @@ export default function Home({ navigation }) {
           <Username>#{user.login}</Username>
           <ExitContainer>
             <ExitText>Sair</ExitText>
-            <Feather name='log-out' size={24} color={Colors.red} />
+            <TouchableOpacity onPress={exitUser}>
+              <Feather name='log-out' size={24} color={Colors.red} />
+            </TouchableOpacity>
           </ExitContainer>
         </Header>
         <Body>
-          <ImageProfile
-            source={{
-              uri: user.avatar_url,
-            }}
-          />
+          <ImageContainer>
+            <ImageProfile
+              source={{
+                uri: user.avatar_url,
+              }}
+            />
+          </ImageContainer>
 
           <UserContainer>
             <Name>{user.name}</Name>

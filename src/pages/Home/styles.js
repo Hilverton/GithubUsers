@@ -41,7 +41,7 @@ export const Body = styled.View`
   background-color: ${Colors.lighterBackgroundColor};
 `;
 
-export const ImageProfile = styled.Image`
+export const ImageContainer = styled.View`
   margin-top: -50px;
   margin-bottom: 35px;
   width: 115px;
@@ -49,6 +49,14 @@ export const ImageProfile = styled.Image`
   border-radius: 57px;
   border: 3px ${Colors.white};
   align-self: center;
+  justify-content: center;
+  align-items: center;
+`;
+
+export const ImageProfile = styled.Image`
+  width: 112px;
+  height: 112px;
+  border-radius: 57px;
 `;
 
 export const UserContainer = styled.View`
