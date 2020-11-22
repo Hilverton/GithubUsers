@@ -14,16 +14,16 @@ import {
   LocksContainer,
 } from './styles';
 
-export default function GitRepo() {
+export default function GitRepo({ data }) {
   return (
     <Container>
-      <Title>GithubUsers</Title>
+      <Title>{data.name}</Title>
       <Rectagle />
-      <Description>Um projeto React Native</Description>
+      <Description>{data.description}</Description>
       <InfoContainer>
         <StarContainer>
           <Feather name='star' size={17} color={Colors.yellow} />
-          <StarNumber>32</StarNumber>
+          <StarNumber>{data.stars}</StarNumber>
         </StarContainer>
         <LocksContainer>
           <Feather name='unlock' size={17} color={Colors.green} />
