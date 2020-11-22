@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 
 import { DataContext } from '../../context';
 
@@ -7,7 +7,11 @@ import { Header, GitRepo } from '../../components';
 import { List, Separator } from './styles';
 
 export default function Repository({ navigation }) {
-  const { repos } = useContext(DataContext);
+  const { repos, getRepos } = useContext(DataContext);
+
+  useEffect(() => {
+    getRepos();
+  }, []);
 
   function renderItem({ item }) {
     return <GitRepo data={item} />;

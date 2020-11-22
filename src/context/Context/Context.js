@@ -5,6 +5,7 @@ const DataContext = createContext({});
 export function DataProvider({ children }) {
   const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
+  const [followers, setFollowers] = useState([]);
 
   async function getData(username) {
     let response = await fetch(`https://api.github.com/users/${username}`);
@@ -19,6 +20,8 @@ export function DataProvider({ children }) {
       name,
       public_repos,
       location,
+      repos_url,
+      followers_url,
     } = data;
 
     setUser({
@@ -31,12 +34,16 @@ export function DataProvider({ children }) {
       name,
       public_repos,
       location,
+      repos_url,
+      followers_url,
     });
+  }
 
-    response = await fetch(`${data.repos_url}`);
-    data = await response.json();
+  async function getRepos() {
+    const response = await fetch(user.repos_url);
+    const data = await response.json();
 
-    dataRepo = data.map((d) => ({
+    const dataRepo = data.map((d) => ({
       id: String(d.id),
       stars: d.stargazers_count,
       name: d.name,
@@ -46,13 +53,29 @@ export function DataProvider({ children }) {
     setRepos(dataRepo);
   }
 
+  async function getFollowers() {
+    const response = await fetch(user.followers_url);
+    const data = await response.json();
+
+    const dataFollower = data.map((d) => ({
+      id: String(d.id),
+      login: d.login,
+      avatar: d.avatar_url,
+    }));
+
+    setFollowers(dataFollower);
+  }
+
   function exit() {
     setUser({});
     setRepos([]);
+    setFollowers([]);
   }
 
   return (
-    <DataContext.Provider value={{ getData, user, exit, repos }}>
+    <DataContext.Provider
+      value={{ getData, user, exit, repos, getRepos, followers, getFollowers }}
+    >
       {children}
     </DataContext.Provider>
   );

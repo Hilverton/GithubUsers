@@ -1,40 +1,29 @@
-import React from 'react';
+import React, { useEffect, useContext } from 'react';
+
+import { DataContext } from '../../context';
 
 import { Header, User } from '../../components';
 
 import { List, Separator } from './styles';
 
-const data = [
-  {
-    id: '1',
-  },
-  {
-    id: '2',
-  },
-  {
-    id: '3',
-  },
-  {
-    id: '4',
-  },
-  {
-    id: '5',
-  },
-  {
-    id: '6',
-  },
-];
-
 export default function Followers({ navigation }) {
+  const { followers, getFollowers } = useContext(DataContext);
+
+  useEffect(() => {
+    getFollowers();
+  }, []);
+
   function renderItem({ item }) {
-    return <User />;
+    return <User data={item} />;
   }
   return (
     <>
-      <Header back={() => navigation.goBack()}>10 seguidores</Header>
+      <Header back={() => navigation.goBack()}>
+        {followers.length} seguidores
+      </Header>
       <List
         ItemSeparatorComponent={() => <Separator />}
-        data={data}
+        data={followers}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingTop: 11, paddingBottom: 65 }}
