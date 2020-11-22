@@ -1,6 +1,7 @@
-import React, { useEffect, useContext } from 'react';
-import { Platform, ScrollView, View, TouchableOpacity } from 'react-native';
+import React, { useContext } from 'react';
+import { Platform, ScrollView, TouchableOpacity } from 'react-native';
 import { Feather } from '@expo/vector-icons';
+import { useRoute } from '@react-navigation/native';
 
 import { DataContext } from '../../context';
 
@@ -11,8 +12,8 @@ import {
   Container,
   Header,
   Username,
-  ExitContainer,
-  ExitText,
+  RightContainer,
+  RightText,
   Body,
   ImageContainer,
   ImageProfile,
@@ -30,52 +31,82 @@ import {
 } from './styles';
 
 export default function Home({ navigation }) {
-  const { user, exit } = useContext(DataContext);
+  const { user, exit, viewerUser, save } = useContext(DataContext);
+  const route = useRoute();
+
   function exitUser() {
     exit();
     navigation.navigate('Login');
   }
+
+  function saveUser() {
+    exit();
+    save();
+    navigation.reset({ routes: [{ name: 'Home' }] });
+  }
+
+  const check = route.name === 'Home';
+
   return (
     <Container style={{ paddingTop: Platform.OS === 'android' ? 30 : 0 }}>
       <ScrollView>
         <Header>
-          <Username>#{user.login}</Username>
-          <ExitContainer>
-            <ExitText>Sair</ExitText>
-            <TouchableOpacity onPress={exitUser}>
-              <Feather name='log-out' size={24} color={Colors.red} />
-            </TouchableOpacity>
-          </ExitContainer>
+          {!check ? (
+            <>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Feather name='arrow-left' size={24} color={Colors.white} />
+              </TouchableOpacity>
+              <Username>#{check ? user.login : viewerUser.login}</Username>
+              <RightContainer>
+                <RightText>Salvar</RightText>
+                <TouchableOpacity onPress={saveUser}>
+                  <Feather name='log-in' size={24} color={Colors.green} />
+                </TouchableOpacity>
+              </RightContainer>
+            </>
+          ) : (
+            <>
+              <Username>#{check ? user.login : viewerUser.login}</Username>
+              <RightContainer>
+                <RightText>Sair</RightText>
+                <TouchableOpacity onPress={exitUser}>
+                  <Feather name='log-out' size={24} color={Colors.red} />
+                </TouchableOpacity>
+              </RightContainer>
+            </>
+          )}
         </Header>
         <Body>
           <ImageContainer>
             <ImageProfile
               source={{
-                uri: user.avatar_url,
+                uri: check ? user.avatar_url : viewerUser.avatar_url,
               }}
             />
           </ImageContainer>
 
           <UserContainer>
-            <Name>{user.name}</Name>
+            <Name>{check ? user.name : viewerUser.name}</Name>
             <Rectangle />
-            {user.email && <Email>{user.email}</Email>}
-            {user.location && <City>{user.location}</City>}
+            <Email>{check ? user.email : viewerUser.email}</Email>
+            <City>{check ? user.location : viewerUser.location}</City>
           </UserContainer>
 
           <PanelInfo>
             <InfoContainer onPress={() => navigation.navigate('Seguidores')}>
-              <Number>{user.followers}</Number>
+              <Number>{check ? user.followers : viewerUser.followers}</Number>
               <Type>Seguidores</Type>
             </InfoContainer>
 
             <InfoContainer onPress={() => navigation.navigate('Seguindo')}>
-              <Number>{user.following}</Number>
+              <Number>{check ? user.following : viewerUser.following}</Number>
               <Type>Seguindo</Type>
             </InfoContainer>
 
             <InfoContainer onPress={() => navigation.navigate('Repos')}>
-              <Number>{user.public_repos}</Number>
+              <Number>
+                {check ? user.public_repos : viewerUser.public_repos}
+              </Number>
               <Type>Repos</Type>
             </InfoContainer>
           </PanelInfo>
@@ -83,7 +114,7 @@ export default function Home({ navigation }) {
           <BioContainer>
             <Title>Bio</Title>
             <Rectangle />
-            <BioText>{user.bio}</BioText>
+            <BioText>{check ? user.bio : viewerUser.bio}</BioText>
           </BioContainer>
         </Body>
       </ScrollView>

@@ -2,7 +2,9 @@ import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Feather } from '@expo/vector-icons';
 
-import { Home, Repository, Followers, Following } from '../../pages';
+import { Home, Repository, Followers } from '../../pages';
+import Viewer from '../Viewer';
+import FollowingRoute from '../FollowingRoute';
 
 const MainStack = createBottomTabNavigator();
 
@@ -42,7 +44,7 @@ export default function Main() {
       />
       <MainStack.Screen
         name='Seguidores'
-        component={Followers}
+        component={Viewer}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name='users' color={color} size={size} />
@@ -51,7 +53,7 @@ export default function Main() {
       />
       <MainStack.Screen
         name='Seguindo'
-        component={Followers}
+        component={FollowingRoute}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name='users' color={color} size={size} />

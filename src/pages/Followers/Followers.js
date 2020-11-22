@@ -14,7 +14,6 @@ export default function Followers({ navigation }) {
   const route = useRoute();
 
   useEffect(() => {
-    console.log('route', route);
     route.name === 'Seguidores' ? getFollowers() : getFollowing();
   }, []);
 

@@ -26,11 +26,11 @@ export const Username = styled.Text`
   color: ${Colors.white};
 `;
 
-export const ExitContainer = styled.View`
+export const RightContainer = styled.View`
   flex-direction: row;
 `;
 
-export const ExitText = styled.Text`
+export const RightText = styled.Text`
   font-size: 15px;
   color: ${Colors.white};
   margin-right: 5px;

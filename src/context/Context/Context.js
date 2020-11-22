@@ -7,6 +7,7 @@ export function DataProvider({ children }) {
   const [repos, setRepos] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [viewerUser, setViewerUser] = useState({});
 
   async function getData(username) {
     let response = await fetch(`https://api.github.com/users/${username}`);
@@ -43,7 +44,7 @@ export function DataProvider({ children }) {
   }
 
   async function getRepos() {
-    const response = await fetch(user.repos_url);
+    const response = await fetch(`${user.repos_url}?per_page=100`);
     const data = await response.json();
 
     const dataRepo = data.map((d) => ({
@@ -57,7 +58,7 @@ export function DataProvider({ children }) {
   }
 
   async function getFollowers() {
-    const response = await fetch(user.followers_url);
+    const response = await fetch(`${user.followers_url}?per_page=100`);
     const data = await response.json();
 
     const dataFollower = data.map((d) => ({
@@ -71,7 +72,7 @@ export function DataProvider({ children }) {
 
   async function getFollowing() {
     const url = user.following_url.slice(0, user.following_url.length - 13);
-    const response = await fetch(url);
+    const response = await fetch(`${url}?per_page=100`);
     const data = await response.json();
 
     const dataFollowing = data.map((d) => ({
@@ -83,11 +84,50 @@ export function DataProvider({ children }) {
     setFollowing(dataFollowing);
   }
 
+  async function getViewerUser(username) {
+    let response = await fetch(`https://api.github.com/users/${username}`);
+    let data = await response.json();
+    const {
+      avatar_url,
+      bio,
+      followers,
+      following,
+      login,
+      email,
+      name,
+      public_repos,
+      location,
+      repos_url,
+      followers_url,
+      following_url,
+    } = data;
+
+    setViewerUser({
+      avatar_url,
+      bio,
+      followers,
+      following,
+      login,
+      email,
+      name,
+      public_repos,
+      location,
+      repos_url,
+      followers_url,
+      following_url,
+    });
+  }
+
+  function save() {
+    setUser(viewerUser);
+  }
+
   function exit() {
     setUser({});
     setRepos([]);
     setFollowers([]);
     setFollowing([]);
+    setViewerUser({});
   }
 
   return (
@@ -102,6 +142,9 @@ export function DataProvider({ children }) {
         getFollowers,
         following,
         getFollowing,
+        viewerUser,
+        getViewerUser,
+        save,
       }}
     >
       {children}
