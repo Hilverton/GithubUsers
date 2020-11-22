@@ -12,6 +12,9 @@ export function DataProvider({ children }) {
   async function getData(username) {
     let response = await fetch(`https://api.github.com/users/${username}`);
     let data = await response.json();
+
+    if (data.message) return { message: 'Usuário não encontrado!' };
+
     const {
       avatar_url,
       bio,
@@ -41,6 +44,7 @@ export function DataProvider({ children }) {
       followers_url,
       following_url,
     });
+    return { ok: true };
   }
 
   async function getRepos() {

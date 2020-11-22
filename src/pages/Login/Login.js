@@ -1,4 +1,5 @@
 import React, { useState, useContext } from 'react';
+import { Alert } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { DataContext } from '../../context';
@@ -30,8 +31,13 @@ export default function Login({ navigation }) {
       return;
     }
 
-    getData(username);
-    navigation.navigate('Main');
+    const response = await getData(username);
+    if (response.ok) navigation.navigate('Main');
+    else
+      Alert.alert('Aviso', response.message, [{ text: 'OK' }], {
+        cancelable: false,
+      });
+    setUsername('');
   }
 
   return (

@@ -15,7 +15,6 @@ export default function User({ data }) {
   const navigation = useNavigation();
 
   function go(username) {
-    console.log('go', username);
     getViewerUser(username);
     navigation.navigate('Viewer');
   }
