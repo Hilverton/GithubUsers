@@ -6,6 +6,7 @@ export function DataProvider({ children }) {
   const [user, setUser] = useState({});
   const [repos, setRepos] = useState([]);
   const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
 
   async function getData(username) {
     let response = await fetch(`https://api.github.com/users/${username}`);
@@ -22,6 +23,7 @@ export function DataProvider({ children }) {
       location,
       repos_url,
       followers_url,
+      following_url,
     } = data;
 
     setUser({
@@ -36,6 +38,7 @@ export function DataProvider({ children }) {
       location,
       repos_url,
       followers_url,
+      following_url,
     });
   }
 
@@ -66,15 +69,40 @@ export function DataProvider({ children }) {
     setFollowers(dataFollower);
   }
 
+  async function getFollowing() {
+    const url = user.following_url.slice(0, user.following_url.length - 13);
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const dataFollowing = data.map((d) => ({
+      id: String(d.id),
+      login: d.login,
+      avatar: d.avatar_url,
+    }));
+
+    setFollowing(dataFollowing);
+  }
+
   function exit() {
     setUser({});
     setRepos([]);
     setFollowers([]);
+    setFollowing([]);
   }
 
   return (
     <DataContext.Provider
-      value={{ getData, user, exit, repos, getRepos, followers, getFollowers }}
+      value={{
+        getData,
+        user,
+        exit,
+        repos,
+        getRepos,
+        followers,
+        getFollowers,
+        following,
+        getFollowing,
+      }}
     >
       {children}
     </DataContext.Provider>

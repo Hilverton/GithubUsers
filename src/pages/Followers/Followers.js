@@ -1,4 +1,5 @@
 import React, { useEffect, useContext } from 'react';
+import { useRoute } from '@react-navigation/native';
 
 import { DataContext } from '../../context';
 
@@ -7,10 +8,14 @@ import { Header, User } from '../../components';
 import { List, Separator } from './styles';
 
 export default function Followers({ navigation }) {
-  const { followers, getFollowers } = useContext(DataContext);
+  const { followers, getFollowers, following, getFollowing } = useContext(
+    DataContext,
+  );
+  const route = useRoute();
 
   useEffect(() => {
-    getFollowers();
+    console.log('route', route);
+    route.name === 'Seguidores' ? getFollowers() : getFollowing();
   }, []);
 
   function renderItem({ item }) {
@@ -19,11 +24,13 @@ export default function Followers({ navigation }) {
   return (
     <>
       <Header back={() => navigation.goBack()}>
-        {followers.length} seguidores
+        {route.name === 'Seguidores'
+          ? `${followers.length} seguidores`
+          : `Seguindo ${following.length}`}
       </Header>
       <List
         ItemSeparatorComponent={() => <Separator />}
-        data={followers}
+        data={route.name === 'Seguidores' ? followers : following}
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         contentContainerStyle={{ paddingTop: 11, paddingBottom: 65 }}

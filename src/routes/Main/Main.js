@@ -51,7 +51,7 @@ export default function Main() {
       />
       <MainStack.Screen
         name='Seguindo'
-        component={Following}
+        component={Followers}
         options={{
           tabBarIcon: ({ color, size }) => (
             <Feather name='users' color={color} size={size} />
