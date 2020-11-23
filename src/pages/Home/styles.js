@@ -34,6 +34,7 @@ export const RightText = styled.Text`
   font-size: 15px;
   color: ${Colors.white};
   margin-right: 5px;
+  margin-left: -35px;
 `;
 
 export const Body = styled.View`
@@ -48,6 +49,7 @@ export const ImageContainer = styled.View`
   height: 115px;
   border-radius: 57px;
   border: 3px ${Colors.white};
+  background-color: ${Colors.lighterBackgroundColor};
   align-self: center;
   justify-content: center;
   align-items: center;

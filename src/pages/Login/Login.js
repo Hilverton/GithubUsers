@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Alert } from 'react-native';
+import { Alert, View } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 import { DataContext } from '../../context';
@@ -55,7 +55,9 @@ export default function Login({ navigation }) {
       </InputContainer>
       <Button onPress={handleButton}>
         <Text>Entrar</Text>
-        <AntDesign name='arrowright' size={24} color='black' />
+        <View style={{ paddingTop: 2 }}>
+          <AntDesign name='arrowright' size={24} color='black' />
+        </View>
       </Button>
     </Container>
   );

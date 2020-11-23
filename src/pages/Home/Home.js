@@ -93,17 +93,25 @@ export default function Home({ navigation }) {
           </UserContainer>
 
           <PanelInfo>
-            <InfoContainer onPress={() => navigation.navigate('Seguidores')}>
+            <InfoContainer
+              onPress={
+                check ? () => navigation.navigate('Seguidores') : () => {}
+              }
+            >
               <Number>{check ? user.followers : viewerUser.followers}</Number>
               <Type>Seguidores</Type>
             </InfoContainer>
 
-            <InfoContainer onPress={() => navigation.navigate('Seguindo')}>
+            <InfoContainer
+              onPress={check ? () => navigation.navigate('Seguindo') : () => {}}
+            >
               <Number>{check ? user.following : viewerUser.following}</Number>
               <Type>Seguindo</Type>
             </InfoContainer>
 
-            <InfoContainer onPress={() => navigation.navigate('Repos')}>
+            <InfoContainer
+              onPress={check ? () => navigation.navigate('Repos') : () => {}}
+            >
               <Number>
                 {check ? user.public_repos : viewerUser.public_repos}
               </Number>
